@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Manager Dashboard</a>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/logout}">Logout</a>
+        </li>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h2>Welcome, <span th:text="${managerName}">Manager</span></h2>
+
+    <div class="row">
+        <!-- Manage Employees Section -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Employees</h5>
+                    <a href="/manager/employees" class="btn btn-primary">View Employees</a>
+                    <a href="/employee/new" class="btn btn-primary">Register new employee</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reports</h5>
+                    <a href="/manager/reports" class="btn btn-secondary">View Reports</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Students Section -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Students</h5>
+                    <a href="/manager/students" class="btn btn-success">View Students</a>
+                    <a href="/student/new" class="btn btn-success">Register new student</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic Schedules Section -->
+        <div class="col-md-4 mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Schedules</h5>
+                    <a href="/manager/schedules" class="btn btn-info">View Academic Schedules</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Role Assignment Section -->
+        <div class="col-md-4 mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Assign Roles</h5>
+                    <a href="/manager/roles" class="btn btn-warning">Assign Roles to Users</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Announcements Section -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Make an Announcement</h5>
+                    <form th:action="@{/manager/announcements}" method="post">
+                        <div class="form-group">
+                            <label for="announcementTitle">Title</label>
+                            <input type="text" class="form-control" id="announcementTitle" name="title" placeholder="Enter announcement title" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="announcementContent">Content</label>
+                            <textarea class="form-control" id="announcementContent" name="content" rows="4" placeholder="Enter announcement details" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Post Announcement</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Display Announcements -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h3>Recent Announcements</h3>
+            <div class="list-group" th:each="announcement : ${announcements}">
+                <a href="#" class="list-group-item list-group-item-action">
+                    <h5 class="mb-1" th:text="${announcement.title}">Announcement Title</h5>
+                    <p class="mb-1" th:text="${announcement.content}">Announcement content here.</p>
+                    <small class="text-muted" th:text="${announcement.createdAt}">Posted on: 2024-09-22</small>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

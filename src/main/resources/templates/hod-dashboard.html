@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>HOD Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">HOD Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Welcome, <span th:text="${user.userName}"></span></h2>
+
+    <!-- Alerts for success or error messages -->
+    <div th:if="${success}" class="alert alert-success" role="alert">
+        <span th:text="${success}"></span>
+    </div>
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+        <span th:text="${error}"></span>
+    </div>
+
+    <!-- HOD Dashboard Content -->
+    <div class="row">
+        <div class="col-lg-3">
+            <!-- Card for managing instructors -->
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Manage Instructors</h5>
+                    <p class="card-text">Add, view, or update instructor information.</p>
+                    <a href="/hod/instructors" class="btn btn-primary">Go to Instructors</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <!-- Card for managing courses -->
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Manage Courses</h5>
+                    <p class="card-text">View and edit course details and assign instructors.</p>
+                    <a href="/course/coReg" class="btn btn-success">Go to Courses</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <!-- Card for managing programs -->
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Manage Programs</h5>
+                    <p class="card-text">View, add, or update academic programs.</p>
+                    <a href="/hod/programs" class="btn btn-warning">Go to Programs</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <!-- Card for viewing reports -->
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <h5 class="card-title">View Reports</h5>
+                    <p class="card-text">Generate department performance and activity reports.</p>
+                    <a href="#" class="btn btn-info">Generate Reports</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Section: Recently Added Courses or Instructors -->
+    <div class="row mt-5">
+        <div class="col-lg-12">
+            <h3>Recently Added Courses</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Instructor</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course : ${recentCourses}">
+                    <td th:text="${course.id}">101</td>
+                    <td th:text="${course.name}">Software Engineering</td>
+                    <td th:text="${course.employee.firstName}">John Smith</td>
+                    <td>
+                        <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

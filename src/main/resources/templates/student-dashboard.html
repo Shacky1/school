@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Global Styling */
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: #2f3b52;
+            color: #ffffff;
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            padding: 30px 20px;
+            border-right: 1px solid #cccccc;
+        }
+
+        .sidebar h3 {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .sidebar .nav-link {
+            color: #b8b8d1;
+            font-size: 16px;
+            padding: 12px 18px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        /* Dashboard Content */
+        .dashboard-content {
+            margin-left: 270px;
+            padding: 40px 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #2f3b52;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .navbar-nav .nav-link {
+            color: #d1d1d1;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ffffff;
+        }
+
+        /* Cards */
+        .card {
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .card-header {
+            background: #f8f8f8;
+            border-bottom: 2px solid #eeeeee;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-body {
+            font-size: 16px;
+        }
+
+        .card .btn {
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #4CAF50;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #45a049;
+        }
+
+        .btn-warning {
+            background: #ff9800;
+            border: none;
+        }
+
+        .btn-warning:hover {
+            background: #f57c00;
+        }
+
+        .btn-success {
+            background: #2196F3;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background: #1976D2;
+        }
+
+        .btn-info {
+            background: #00bcd4;
+            border: none;
+        }
+
+        .btn-info:hover {
+            background: #0097a7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2f3b52;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h3>Student Dashboard</h3>
+    <ul class="nav flex-column">
+        <li><a class="nav-link" th:href="@{/student/dashboard}">Dashboard</a></li>
+        <li><a class="nav-link" th:href="@{/student/courses}">Courses</a></li>
+        <li><a class="nav-link" th:href="@{/student/registered-courses}">My Courses</a></li>
+        <li><a class="nav-link" th:href="@{/student/results}">My Results</a></li>
+        <li><a class="nav-link" th:href="@{/student/materials}">Course Materials</a></li>
+        <li><a class="nav-link" th:href="@{/student/profile}">Profile</a></li>
+        <li><a class="nav-link" th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+
+<!-- Main Dashboard Content -->
+<div class="dashboard-content">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Student Portal</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li><a class="nav-link" th:href="@{/student/notifications}">Notifications</a></li>
+                    <li><a class="nav-link" th:href="@{/student/messages}">Messages</a></li>
+                    <li><a class="nav-link" th:href="@{/student/settings}">Settings</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <h2 class="text-center mb-4">Welcome, <span th:text="${student.firstName}">Student</span></h2>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">Courses Enrolled</div>
+                <div class="card-body">
+                    <p>Track your courses.</p>
+                    <a th:href="@{/student/courses}" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">Assignments</div>
+                <div class="card-body">
+                    <p>Complete your tasks.</p>
+                    <a th:href="@{/student/assignments}" class="btn btn-warning">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">Quizzes</div>
+                <div class="card-body">
+                    <p>Test your knowledge.</p>
+                    <a th:href="@{/quizzes}" class="btn btn-success">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">Materials</div>
+                <div class="card-body">
+                    <p>Access study materials.</p>
+                    <a th:href="@{/student/materials}" class="btn btn-info">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 University. All Rights Reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

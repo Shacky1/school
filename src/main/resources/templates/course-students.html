@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Students</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">School Management</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/student/dashboard}">Dashboard</a>
+            </li>
+            <li>
+                <a class="nav-link" th:href="@{/student/courses}">Courses</a>
+            </li>
+            <li>
+                <a class="nav-link" th:href="@{/student/registered-courses}">My Courses</a>
+            </li>
+            <li>
+                <a class="nav-link" th:href="@{/student/results}">My results</a>
+            </li>
+            <li>
+                <a class="nav-link" th:href="@{/student/materials}">Course Materials</a>
+            </li>
+            <li>
+                <a class="nav-link" th:href="@{/student/profile}">Profile</a>
+            </li>
+            <li>
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="container mt-5">
+    <h1>Students in Course: <span th:text="${course.id}"></span></h1>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h2>Enrolled Students</h2>
+            <table class="table table-hover">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student, iter : ${students}">
+                    <th scope="row" th:text="${iter.count}"></th>
+                    <td th:text="${student.firstName} + ' ' + ${student.lastName}"></td>
+                    <td th:text="${student.email}"></td>
+                    <td th:text="${student.phoneNumber}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create Quiz</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+  <div class="card shadow-lg p-4">
+    <h1 class="text-center text-primary mb-4">Create New Quiz</h1>
+    <form th:action="@{/quizzes/new}" method="post">
+      <input type="hidden" name="courseId" th:value="${course.id}">
+
+      <div class="mb-3">
+        <label class="form-label">Quiz Title</label>
+        <input type="text" class="form-control" name="title" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Duration (minutes)</label>
+        <input type="number" class="form-control" name="duration" required min="1">
+      </div>
+
+      <div id="questionsContainer">
+        <div class="question-container mb-3">
+          <label class="form-label">Question</label>
+          <input type="text" class="form-control" name="questions[]" required>
+
+          <label class="form-label mt-2">Options (comma-separated)</label>
+          <input type="text" class="form-control" name="options[]" required>
+
+          <label class="form-label mt-2">Correct Answer</label>
+          <input type="text" class="form-control" name="correctAnswers[]" required>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-secondary" onclick="addQuestion()">Add Another Question</button>
+
+      <div class="text-center mt-3">
+        <button type="submit" class="btn btn-success btn-lg">Save Quiz</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<script>
+  function addQuestion() {
+      let container = document.getElementById("questionsContainer");
+      let div = document.createElement("div");
+      div.classList.add("question-container", "mb-3");
+      div.innerHTML = `
+          <label class="form-label">Question</label>
+          <input type="text" class="form-control" name="questions[]" required>
+
+          <label class="form-label mt-2">Options (comma-separated)</label>
+          <input type="text" class="form-control" name="options[]" required>
+
+          <label class="form-label mt-2">Correct Answer</label>
+          <input type="text" class="form-control" name="correctAnswers[]" required>
+      `;
+      container.appendChild(div);
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

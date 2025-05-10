@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Student Course Results</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            background-color: #343a40;
+            height: 100vh;
+            position: fixed;
+            width: 220px;
+        }
+        .sidebar .nav-link {
+            color: #ffffff;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .thead-light {
+            background-color: #007bff;
+            color: white;
+        }
+        .container {
+            margin-left: 240px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar d-flex flex-column p-3">
+    <h3 class="text-center text-light">Dashboard</h3>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/student/dashboard}">Dashboard</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/student/courses}">Courses</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/student/registered-courses}">My Courses</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/student/results}">My results</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/student/materials}">Course Materials</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/student/profile}">Profile</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/logout}">Logout</a>
+        </li>
+    </ul>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" th:href="@{/student/dashboard}">Student Dashboard</a>
+</nav>
+
+<div class="container mt-5">
+    <h1>Course Results</h1>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+    <div th:if="${results.isEmpty()}">
+        <p>No results available.</p>
+    </div>
+    <table class="table table-striped mt-4" th:if="${!results.isEmpty()}">
+        <thead class="thead-light">
+        <tr>
+            <th>Course Name</th>
+            <th>Score</th>
+            <th>Grade</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="result : ${results}">
+            <td th:text="${result.course.name}"></td>
+            <td th:text="${result.score}"></td>
+            <td th:text="${result.grade}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

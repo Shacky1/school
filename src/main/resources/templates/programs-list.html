@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Manage Programs</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">HOD Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/hod/dashboard}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/hod/instructors}">Manage Instructors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/hod/courses}">Manage Courses</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/hod/programs}">Manage Programs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Manage Programs</h2>
+
+    <!-- Alerts for success or error messages -->
+    <div th:if="${success}" class="alert alert-success" role="alert">
+        <span th:text="${success}"></span>
+    </div>
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+        <span th:text="${error}"></span>
+    </div>
+
+    <!-- Table for managing programs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Program ID</th>
+                    <th>Program Name</th>
+                    <th>Duration (Years)</th>
+                    <th>Students (Year of Study)</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="program : ${programs}">
+                    <td th:text="${program.id}">1</td>
+                    <td th:text="${program.name}">Bachelor of Science</td>
+                    <td th:text="${program.duration}">4</td>
+                    <td>
+                        <!-- Nested list for displaying students with their year of study under each program -->
+                        <ul>
+                            <li th:each="student : ${program.students}">
+                                <span th:text="${student.firstName} + ' ' + ${student.lastName}">John Doe</span>
+                                (<span th:text="${student.yearOfStudy}"></span> Year)
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Button to add a new program -->
+    <div class="row mt-4">
+        <div class="col-lg-12 text-right">
+            <a th:href="@{/hod/programs/add}" class="btn btn-success">Add New Program</a>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

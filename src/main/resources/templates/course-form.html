@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Course Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Sticky footer styles */
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Course Management</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/hod/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/hod/courses">View Courses</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container content mt-5">
+    <h2 class="text-center mb-4">Add New Course</h2>
+
+    <!-- Display success or error messages -->
+    <div th:if="${success}" class="alert alert-success" role="alert" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+
+    <form th:action="@{/course/save_co}" th:object="${courseDto}" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name">Course Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter course name" th:field="*{name}" required>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="semester">Semester</label>
+                <input type="number" class="form-control" id="semester" placeholder="Enter semester" th:field="*{semester}" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="program">Program Name</label>
+                <input type="text" class="form-control" id="program" placeholder="Enter program name" th:field="*{program.name}" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="year">Year</label>
+                <input type="number" class="form-control" id="year" placeholder="Enter the Year" th:field="*{year}" required>
+            </div>
+            <!-- Description Field -->
+            <div class="form-group col-md-6">
+                <label for="description" class="form-label">Description:</label>
+                <textarea id="description" class="form-control" th:field="*{description}" rows="4" placeholder="Provide a brief description" required></textarea>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="credit">Credit</label>
+                <input type="number" class="form-control" id="credit" placeholder="Enter credits" th:field="*{credit}" required>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="user">Teacher's Username</label>
+                <input type="text" class="form-control" id="user" placeholder="Enter teacher's username" th:field="*{employee.user.userName}" required>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </form>
+</div>
+
+<!-- Footer at the bottom of the page -->
+<footer class="text-center py-4 mt-5">
+    <p>&copy; 2024 School Management System. All Rights Reserved.</p>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

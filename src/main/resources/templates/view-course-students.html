@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>View Students</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Navbar Styling */
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand {
+            color: white !important;
+        }
+        .navbar a:hover {
+            color: #007bff !important;
+        }
+        /* Header Styling */
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 span {
+            color: #007bff;
+        }
+        /* Table Styling */
+        .table {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .table tr:hover {
+            background-color: #f1f1f1;
+        }
+        .table td {
+            font-size: 1.1rem;
+            padding: 15px;
+        }
+        .text-center {
+            font-weight: bold;
+            color: red;
+        }
+        /* Footer Styling */
+        footer {
+            background-color: #343a40;
+            color: white;
+        }
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .table {
+                font-size: 0.9rem;
+            }
+        }
+        /* Pending Message Styling */
+.pending-message {
+    color: #ff0000;  /* Red color for Pending message */
+    font-weight: bold;
+    background-color: #fff3cd;  /* Light yellow background */
+    border: 1px solid #ffc107;  /* Orange border */
+}
+
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">School Management</a>
+    <a class="nav-link" href="/teacher/dashboard">Dashboard</a>
+
+    <a class="nav-link" href="/teacher/courses">My Courses</a>
+</nav>
+
+
+<!-- Main Content -->
+<div class="container mt-5">
+    <h1>Students Enrolled in <span th:text="${course.name}"></span></h1>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Year of Study</th>
+                    <th>Score</th>
+                    <th>Grade</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="studentMark, iter : ${studentMarks}">
+                    <td th:text="${iter.count}"></td>
+                    <td th:text="${studentMark.fullName}"></td>
+                    <td th:text="${studentMark.email}"></td>
+                    <td th:text="${studentMark.phoneNumber}"></td>
+                    <td th:text="${studentMark.yearOfStudy}"></td>
+                    <td th:text="${studentMark.score != null ? studentMark.score : 'Pending'}"
+                        th:classappend="${studentMark.score == null} ? 'pending-message' : ''"></td>
+                    <td th:text="${studentMark.grade != null ? studentMark.grade : 'Pending'}"
+                        th:classappend="${studentMark.grade == null} ? 'pending-message' : ''"></td>
+
+                </tr>
+                <tr th:if="${studentMarks.size() == 0}">
+                    <td colspan="7" class="text-center">No students enrolled in this course.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center py-4 mt-5">
+    <p>&copy; 2024 School Management System. All Rights Reserved.</p>
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

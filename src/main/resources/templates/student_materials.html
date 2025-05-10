@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Materials</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            background-color: #343a40;
+            height: 100vh;
+            position: fixed;
+            width: 220px;
+        }
+        .sidebar .nav-link {
+            color: #ffffff;
+        }
+        .sidebar .nav-link:hover {
+            background-color: #495057;
+        }
+        .dashboard-content {
+            margin-left: 240px;
+            padding: 20px;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand, .nav-link {
+            color: #ffffff !important;
+        }
+        .nav-link:hover {
+            background-color: #495057;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar d-flex flex-column p-3">
+    <h3 class="text-center text-light">Materials</h3>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/student/dashboard}">Dashboard</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/student/courses}">Courses</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/student/registered-courses}">My Courses</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/student/results}">My results</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/student/materials}">Course Materials</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/student/profile}">Profile</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/logout}">Logout</a>
+        </li>
+    </ul>
+</div>
+
+<!-- Main Content -->
+<div class="dashboard-content">
+    <h1>Course Materials</h1>
+    <p th:if="${error}" th:text="${error}" class="text-danger"></p>
+    <div th:if="${courseMaterials}">
+        <table class="table table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>Course Name</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>File Type</th>
+                <th>Media</th>
+                <th>Download</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="material : ${courseMaterials}">
+                <td th:text="${material.course.name}"></td>
+                <td th:text="${material.title}"></td>
+                <td th:text="${material.description}"></td>
+                <td th:text="${material.fileType}"></td>
+                <td>
+                    <!-- Stream video or audio from the database -->
+                    <div th:if="${material.fileType == 'video/mp4'}">
+                        <video width="320" height="240" controls>
+                            <source th:src="@{/student/media/{id}(id=${material.id})}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div th:if="${material.fileType == 'audio'}">
+                        <audio controls>
+                            <source th:src="@{/student/media/{id}(id=${material.id})}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                <td>
+                    <a th:href="@{/student/download/{id}(id=${material.id})}" class="btn btn-primary btn-sm" target="_blank">Download</a>
+                </td>
+
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Display alert if no course materials available -->
+    <div th:if="${courseMaterials == null || courseMaterials.isEmpty()}" class="alert alert-warning text-center">
+        <p>No course materials available for your courses and year of study.</p>
+    </div>
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

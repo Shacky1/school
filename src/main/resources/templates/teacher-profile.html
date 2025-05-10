@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light grey background */
+            color: #495057; /* Dark grey text */
+        }
+        .navbar {
+            background-color: #343a40; /* Dark navbar */
+        }
+        .navbar-brand, .nav-link {
+            color: #ffffff !important; /* White text for navbar links */
+        }
+        .nav-link.active {
+            background-color: #495057; /* Dark grey for active link */
+            color: #ffffff !important; /* White text for active link */
+        }
+        .container h2 {
+            color: #007bff; /* Blue heading */
+            margin-top: 20px; /* Add some top margin */
+            text-align: center;
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        .btn-primary {
+            margin-top: 10px;
+        }
+        .table {
+            margin-top: 20px;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #343a40;
+            color: #ffffff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .alert {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">School Management</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/teacher/dashboard}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/teacher/courses}">My Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mt-4">
+    <header>
+        <h2>Teacher Profile</h2>
+    </header>
+
+    <!-- Success and Error Alerts -->
+    <div th:if="${success}" class="alert alert-success" role="alert">[[${success}]]</div>
+    <div th:if="${error}" class="alert alert-danger" role="alert">[[${error}]]</div>
+
+    <!-- Profile Information Form -->
+    <form th:action="@{/teacher/profile/update/{id}(id=${teacher.id})}" th:object="${teacher}" method="post">
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="firstName" class="form-label">First Name:</label>
+                <input type="text" id="firstName" class="form-control" th:field="*{firstName}" required>
+            </div>
+            <div class="col-md-4">
+                <label for="secondName" class="form-label">Second Name:</label>
+                <input type="text" id="secondName" class="form-control" th:field="*{secondName}" required>
+            </div>
+            <div class="col-md-4">
+                <label for="lastName" class="form-label">Last Name:</label>
+                <input type="text" id="lastName" class="form-control" th:field="*{lastName}" required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" id="email" class="form-control" th:field="*{email}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="phoneNumber" class="form-label">Phone Number:</label>
+                <input type="tel" id="phoneNumber" class="form-control" th:field="*{phoneNumber}">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="salary" class="form-label">Salary:</label>
+                <input type="number" id="salary" class="form-control" th:field="*{salary}" step="0.01" readonly>
+            </div>
+            <div class="col-md-6">
+                <label for="department" class="form-label">Department:</label>
+                <input type="text" id="department" class="form-control" th:field="*{department.name}" readonly>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+
+    <!-- Course Materials Table -->
+    <h2 class="mt-5">Course Materials</h2>
+    <table class="table table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th>Course Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="material : ${courseMaterials}">
+            <td th:text="${material.title}">Course Title</td>
+            <td th:text="${material.description}">Description</td>
+            <td>
+                <a th:href="@{/teacher/course-materials/edit/{id}(id=${material.id})}" class="btn btn-warning btn-sm">Edit</a>
+                <a th:href="@{/teacher/course-materials/delete/{id}(id=${material.id})}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Footer -->
+<footer class="mt-5">
+    <p>© 2024 School Management System</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

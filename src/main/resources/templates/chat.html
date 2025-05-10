@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Room</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+<div class="whatsapp-chat-container">
+    <div class="chat-window">
+        <div id="chat-box" class="chat-box">
+            <ul>
+                <li th:each="message : ${messages}">
+                    <!-- Sent messages -->
+                    <div th:if="${message.sender == 'currentUser'}" class="message sent">
+                        <div class="message-content">
+                            <p th:text="${message.content}"></p>
+                            <!-- Ensure message.timestamp is a valid Date object -->
+                            <span class="timestamp" th:text="${#dates.format(message.timestamp, 'HH:mm')}"></span>
+                        </div>
+                    </div>
+                    <!-- Received messages -->
+                    <div th:if="${message.sender != 'currentUser'}" class="message received">
+                        <div class="message-content">
+                            <p th:text="${message.content}"></p>
+                            <span class="timestamp" th:text="${#dates.format(message.timestamp, 'HH:mm')}"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- Input Box -->
+        <div class="chat-input-container">
+            <input type="text" id="message-input" placeholder="Type a message" class="message-input" />
+            <button class="send-button" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</div>
+<script>
+    var stompClient = null;
+
+    function connect() {
+        const socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function(frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/messages', function(message) {
+                showMessage(JSON.parse(message.body));
+            });
+        });
+    }
+
+    function showMessage(message) {
+        const chatBox = document.getElementById("chat-box");
+        const listItem = document.createElement("li");
+        const messageDiv = document.createElement("div");
+
+        if (message.sender === 'currentUser') {
+            messageDiv.classList.add('message', 'sent');
+        } else {
+            messageDiv.classList.add('message', 'received');
+        }
+
+        messageDiv.innerHTML = `
+            <div class="message-content">
+                <p>${message.content}</p>
+                <span class="timestamp">${new Date(message.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
+            </div>
+        `;
+
+        listItem.appendChild(messageDiv);
+        chatBox.appendChild(listItem);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function sendMessage() {
+        const input = document.getElementById("message-input");
+        const messageContent = input.value.trim(); // Trim whitespace
+
+        if (messageContent !== "") {
+            const message = {
+                sender: 'currentUser',
+                content: messageContent,
+                timestamp: new Date().toISOString()
+            };
+
+            stompClient.send("/app/sendMessage", {}, JSON.stringify(message));
+            input.value = ''; // Clear input after sending
+        } else {
+            alert("Message cannot be empty!"); // Optional: display a message
+        }
+    }
+
+    connect(); // Connect to WebSocket when page loads
+</script>
+</body>
+</html>

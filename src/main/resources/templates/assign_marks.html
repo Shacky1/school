@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Assign Marks</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #343a40;
+            padding-top: 20px;
+            z-index: 1000;
+        }
+        .sidebar a {
+            padding: 15px;
+            text-align: center;
+            color: white;
+            display: block;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #007bff;
+        }
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand, .nav-link {
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar">
+    <a href="/teacher/dashboard">Dashboard</a>
+    <a href="/teacher/courses">My Courses</a>
+    <a href="/logout">Logout</a>
+</div>
+<!-- Main content -->
+<div class="content">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">School Management</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <div class="container mt-5">
+        <h2 class="text-center">Assign Marks to Student</h2>
+        <!-- Form for assigning marks -->
+        <form th:action="@{/teacher/courses/students/{courseId}/assign-marks(courseId=${course.id})}" th:object="${marksDto}" method="post" class="mt-4">
+            <div class="form-group">
+                <label for="student">Student</label>
+                <select th:field="*{studentId}" id="student" class="form-control" required>
+                    <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.firstName} + ' ' + ${student.lastName}">Select a student</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="score">Score</label>
+                <input type="number" th:field="*{score}" step="0.01" min="0" max="100" class="form-control" id="score" required oninput="calculateGrade()"/>
+            </div>
+            <div class="form-group">
+                <label for="grade">Grade</label>
+                <select th:field="*{grade}" id="grade" class="form-control" required>
+                    <option value="" disabled selected>Select Grade</option>
+                    <option th:value="A">A</option>
+                    <option th:value="B">B</option>
+                    <option th:value="C">C</option>
+                    <option th:value="D">D</option>
+                    <option th:value="E">E</option>
+                    <option th:value="F">F</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Assign Marks</button>
+        </form>
+        <div th:if="${success}" class="alert alert-success mt-3" th:text="${success}"></div>
+        <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+    </div>
+</div>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    function calculateGrade() {
+        var score = document.getElementById('score').value;
+        var gradeField = document.getElementById('grade');
+
+        if (score >= 90) {
+            gradeField.value = 'A';
+        } else if (score >= 80) {
+            gradeField.value = 'B';
+        } else if (score >= 70) {
+            gradeField.value = 'C';
+        } else if (score >= 60) {
+            gradeField.value = 'D';
+        } else if (score >= 50) {
+            gradeField.value = 'E';
+        } else {
+            gradeField.value = 'F';
+        }
+    }
+</script>
+</body>
+</html>

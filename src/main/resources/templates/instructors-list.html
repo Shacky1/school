@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Instructors List</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Instructors</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/hod/dashboard">Back to Dashboard</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2 class="text-center">Instructors List</h2>
+
+    <!-- Check if there are instructors to display -->
+    <div th:if="${instructors != null}">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Instructor Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>User name</th>
+                    <th>Courses Assigned</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Loop through the instructors and display their details -->
+                <tr th:each="instructor, iterStat : ${instructors}">
+                    <td th:text="${iterStat.count}">1</td> <!-- Index number -->
+                    <td th:text="${instructor.firstName} + ' ' + ${instructor.lastName}">Instructor Name</td>
+                    <td th:text="${instructor.email}">instructor@example.com</td>
+                    <td th:text="${instructor.phoneNumber}">123-456-7890</td>
+                    <td th:text="${instructor.user.userName}">ST1232</td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <!-- Loop through the courses assigned to the instructor -->
+                            <li th:each="course : ${instructor.courses}" th:text="${course.name} + ' (' + ${course.semester} + ')'">Course Name (Semester)</li>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- If there are no instructors to display -->
+    <div th:if="${instructors == null || instructors.isEmpty()}" class="alert alert-warning text-center">
+        <p>No instructors found in your department.</p>
+    </div>
+</div>
+
+<!-- Optional footer -->
+<footer class="bg-light text-center py-3 mt-5">
+    <p>&copy; 2024 Your School Name. All Rights Reserved.</p>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

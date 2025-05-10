@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quiz Results</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Quiz Results</h1>
+    <table class="table table-bordered mt-4">
+        <thead class="thead-dark">
+        <tr>
+            <th>Student Name</th>
+            <th>Quiz Title</th>
+            <th>Score</th>
+            <th>Total Marks</th>
+            <th>Date Taken</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="result : ${quizResults}">
+            <td th:text="${result.student.name}"></td>
+            <td th:text="${result.quiz.title}"></td>
+            <td th:text="${result.score}"></td>
+<!--            <td th:text="${result.totalMarks}"></td>-->
+<!--            <td th:text="${#dates.format(result.dateTaken, 'yyyy-MM-dd HH:mm')}"></td>-->
+        </tr>
+        </tbody>
+    </table>
+    <a href="/teacher/courses" class="btn btn-secondary">Back to Courses</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<h2>Quiz Results for <span th:text="${student.firstName} + ' ' + ${student.lastName}"></span></h2>
+<h3>Course: <span th:text="${course.name}"></span></h3>
+
+<table>
+    <thead>
+    <tr>
+        <th>Quiz Title</th>
+        <th>Score</th>
+        <th>Submitted At</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="result : ${quizResults}">
+        <td th:text="${result.quiz.title}"></td>
+        <td th:text="${result.score}"></td>
+        <td th:text="${result.submittedAt}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/teacher/courses/students/{courseId}(courseId=${course.id})}">Back to Students</a>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Teacher Courses</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #343a40;
+            padding-top: 20px;
+            z-index: 1000;
+        }
+        .sidebar a {
+            padding: 15px;
+            text-align: center;
+            color: white;
+            display: block;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #007bff;
+        }
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand, .nav-link {
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <a href="/teacher/dashboard">Dashboard</a>
+    <a href="/teacher/courses">My Courses</a>
+    <a href="/teacher/profile">Profile</a>
+    <a href="/logout">Logout</a>
+</div>
+
+<!-- Main content -->
+<div class="content">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">School Management</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="text-center">My Courses</h1>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div th:if="${teacherCourses != null}">
+                    <div th:each="course : ${teacherCourses}" class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h3 th:text="${course.name}"></h3>
+                        </div>
+                        <div class="card-body">
+                            <h5>Course Materials</h5>
+                            <ul class="list-group list-group-flush" th:if="${courseMaterials != null}">
+                                <li class="list-group-item" th:each="material : ${courseMaterials}"
+                                    th:if="${material.course.id == course.id}">
+                                    <strong th:text="${material.title}"></strong>
+                                    <p th:text="${material.description}"></p>
+
+                                    <!-- Edit Course Material -->
+                                    <a th:href="@{/course-materials/edit/{id}(id=${material.id})}" class="btn btn-secondary btn-sm">
+                                        Edit
+                                    </a>
+
+                                    <!-- Delete Course Material -->
+                                    <form th:action="@{/course-materials/delete/{id}(id=${material.id})}" method="post" style="display:inline;">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                            <!-- Link to view students for this course -->
+                            <a th:href="@{/teacher/courses/students/{courseId}(courseId=${course.id})}"
+                               class="btn btn-primary mt-3">
+                                View Students
+                            </a>
+                            <!-- Button to assign marks to a specific student -->
+                            <a th:href="@{/teacher/courses/students/{courseId}/assign-marks(courseId=${course.id})}"
+                               class="btn btn-success mt-3">
+                                Assign Marks
+                            </a>
+                            <!-- Link to add a quiz to this specific course -->
+                            <a th:href="@{/quizzes/new/{courseId}(courseId=${course.id})}"
+                               class="btn btn-warning mt-3">
+                                Add Quiz
+                            </a>
+                            <!-- Link to view students' quiz results for this specific course -->
+                            <a th:href="@{/teacher/course/{courseId}(courseId=${course.id})}"
+                               class="btn btn-info mt-3">
+                                View Quiz Results
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${teacherCourses == null}">
+                    <p class="text-muted text-center">No courses available.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer text-center py-4 mt-5">
+    <p>&copy; 2024 School Management System. All Rights Reserved.</p>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

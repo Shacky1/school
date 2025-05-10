@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Add New Program</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">HOD Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/hod/dashboard}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/hod/instructors}">Manage Instructors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/hod/courses}">Manage Courses</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/hod/programs}">Manage Programs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Add New Program</h2>
+
+    <!-- Alerts for success or error messages -->
+    <div th:if="${success}" class="alert alert-success" role="alert">
+        <span th:text="${success}"></span>
+    </div>
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+        <span th:text="${error}"></span>
+    </div>
+
+    <!-- Form to add a new program -->
+    <form th:action="@{/hod/programs/add}" method="post" th:object="${program}" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="programName">Program Name</label>
+            <input type="text" class="form-control" id="programName" name="name" required th:field="*{name}">
+            <div class="invalid-feedback">Please enter the program name.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="programDuration">Duration (in years)</label>
+            <input type="number" class="form-control" id="programDuration" name="duration" min="1" max="10" required th:field="*{duration}">
+            <div class="invalid-feedback">Please enter the duration (in years).</div>
+        </div>
+        <!-- Description Field -->
+        <div class="form-group">
+            <label for="description" class="form-label">Description:</label>
+            <textarea id="description" class="form-control" th:field="*{description}" rows="4" placeholder="Provide a brief description" required></textarea>
+            <div class="invalid-feedback">Please enter the program description.</div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Save Program</button>
+        <a th:href="@{/hod/programs}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // JavaScript for Bootstrap validation
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+
+</body>
+</html>
