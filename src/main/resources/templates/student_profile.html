@@ -6,117 +6,119 @@
     <title>Student Profile</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .sidebar {
-            background-color: #343a40;
-            height: 100vh;
-            position: fixed;
-            width: 220px;
-        }
-        .sidebar .nav-link {
-            color: #ffffff;
-        }
-        .sidebar .nav-link:hover {
-            background-color: #495057;
-        }
-        .dashboard-content {
-            margin-left: 240px;
-        }
-        .card-header {
-            background-color: #007bff;
-            color: white;
-        }
-        .navbar {
-            background-color: #343a40;
-        }
-        .navbar-brand, .nav-link {
-            color: #ffffff !important;
-        }
-        .nav-link:hover {
-            background-color: #495057;
-        }
-        .profile-info {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
 </head>
-<body>
-<!-- Sidebar -->
-<div class="sidebar d-flex flex-column p-3">
-    <h3 class="text-center text-light">Dashboard</h3>
-    <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/student/dashboard}">Dashboard</a>
-        </li>
-        <li>
-            <a class="nav-link" th:href="@{/student/courses}">Courses</a>
-        </li>
-        <li>
-            <a class="nav-link" th:href="@{/student/registered-courses}">My Courses</a>
-        </li>
-        <li>
-            <a class="nav-link" th:href="@{/student/results}">My results</a>
-        </li>
-        <li>
-            <a class="nav-link" th:href="@{/student/materials}">Course Materials</a>
-        </li>
-        <li>
-            <a class="nav-link" th:href="@{/student/profile}">Profile</a>
-        </li>
-        <li>
-            <a class="nav-link" th:href="@{/logout}">Logout</a>
-        </li>
-    </ul>
-</div>
+<body class="bg-light">
 
-<!-- Main Content -->
-<div class="dashboard-content p-4">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Student Portal</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/student/notifications}">Notifications</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/student/messages}">Messages</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/student/settings}">Settings</a>
-                    </li>
-                </ul>
-            </div>
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+        <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Student Portal</a>
+        <div class="d-none d-md-block">
+            <ul class="navbar-nav flex-row">
+                <li class="nav-item me-3">
+                    <a class="nav-link text-white" th:href="@{/student/notifications}">Notifications</a>
+                </li>
+                <li class="nav-item me-3">
+                    <a class="nav-link text-white" th:href="@{/student/messages}">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/student/settings}">Settings</a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <!-- Profile Information -->
-    <div class="container">
-        <h2 class="text-center mb-4">Student Profile</h2>
-        <div class="profile-info">
-            <h4>Personal Information</h4>
-            <p><strong>First Name:</strong> <span th:text="${student.firstName}">John</span></p>
-            <p><strong>Middle Name:</strong> <span th:text="${student.middleName}">A.</span></p>
-            <p><strong>Last Name:</strong> <span th:text="${student.lastName}">Doe</span></p>
-            <p><strong>Email:</strong> <span th:text="${student.email}">johndoe@example.com</span></p>
-            <p><strong>Phone Number:</strong> <span th:text="${student.phoneNumber}">+225 456 7890</span></p>
-            <p><strong>Registration Number:</strong> <span th:text="${student.user.userName}">S2024-0000</span></p>
-            <p><strong>Program:</strong> <span th:text="${student.program.name}">Computer Science</span></p>
-            <p><strong>Department:</strong> <span th:text="${student.program.department.name}">Department name</span></p>
-            <p><strong>Year of Study:</strong> <span th:text="${student.yearOfStudy}">2</span></p>
-            <p><strong>Enrollment Date:</strong> <span th:text="${student.enrollmentDate}">2023-09-01</span></p>
-        </div>
+<!-- Sidebar Offcanvas -->
+<div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sidebarMenuLabel">Dashboard</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white px-3" th:href="@{/student/dashboard}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white px-3" th:href="@{/student/courses}">Courses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white px-3" th:href="@{/student/registered-courses}">My Courses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white px-3" th:href="@{/student/results}">My Results</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white px-3" th:href="@{/student/materials}">Course Materials</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white px-3" th:href="@{/student/profile}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white px-3" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
     </div>
 </div>
 
-<!-- Bootstrap JS and Popper.js -->
+<!-- Main content layout -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Static Sidebar for medium+ screens -->
+        <nav class="col-md-3 col-lg-2 d-none d-md-block bg-dark sidebar text-white">
+            <div class="pt-3">
+                <h5 class="text-center">Dashboard</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/student/dashboard}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/student/courses}">Courses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/student/registered-courses}">My Courses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/student/results}">My Results</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/student/materials}">Course Materials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/student/profile}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/logout}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-4">
+            <h2 class="text-center mb-4">Student Profile</h2>
+            <div class="bg-white p-4 rounded shadow-sm">
+                <h4>Personal Information</h4>
+                <p><strong>First Name:</strong> <span th:text="${student.firstName}">John</span></p>
+                <p><strong>Middle Name:</strong> <span th:text="${student.middleName}">A.</span></p>
+                <p><strong>Last Name:</strong> <span th:text="${student.lastName}">Doe</span></p>
+                <p><strong>Email:</strong> <span th:text="${student.email}">johndoe@example.com</span></p>
+                <p><strong>Phone Number:</strong> <span th:text="${student.phoneNumber}">+225 456 7890</span></p>
+                <p><strong>Registration Number:</strong> <span th:text="${student.user.userName}">S2024-0000</span></p>
+                <p><strong>Program:</strong> <span th:text="${student.program.name}">Computer Science</span></p>
+                <p><strong>Department:</strong> <span th:text="${student.program.department.name}">Department name</span></p>
+                <p><strong>Year of Study:</strong> <span th:text="${student.yearOfStudy}">2</span></p>
+                <p><strong>Enrollment Date:</strong> <span th:text="${student.enrollmentDate}">2023-09-01</span></p>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
