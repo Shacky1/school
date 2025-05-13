@@ -5,120 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f4f6f9;
-            color: #333;
-            font-family: 'Arial', sans-serif;
-        }
-        .navbar {
-            background-color: #2f3b52;
-        }
-        .navbar-brand, .navbar-nav .nav-link {
-            color: #fff;
-        }
-        .navbar-nav .nav-link:hover {
-            color: #ddd;
-        }
-        .card {
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        footer {
-            background-color: #2f3b52;
-            color: #fff;
-            text-align: center;
-            padding: 15px 0;
-            margin-top: 30px;
-        }
-    </style>
 </head>
-<body>
+<body class="bg-light">
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark">
+<!-- Mobile Navbar with Toggle -->
+<nav class="navbar navbar-dark bg-dark d-md-none">
     <div class="container-fluid">
-        <button class="btn btn-outline-light me-3 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
-            ☰
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            ☰ Menu
         </button>
-        <a class="navbar-brand" href="#">Student Portal</a>
-        <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" th:href="@{/student/notifications}">Notifications</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/student/messages}">Messages</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/student/settings}">Settings</a></li>
-            </ul>
-        </div>
+        <span class="navbar-brand mb-0 h1">Student Dashboard</span>
     </div>
 </nav>
 
-<!-- Sidebar -->
-<div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="sidebarMenu">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title">Student Dashboard</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-    </div>
-    <div class="offcanvas-body">
-        <ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/dashboard}">Dashboard</a></li>
-            <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/courses}">Courses</a></li>
-            <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/registered-courses}">My Courses</a></li>
-            <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/results}">My Results</a></li>
-            <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/materials}">Course Materials</a></li>
-            <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/profile}">Profile</a></li>
-            <li class="nav-item"><a class="nav-link text-white" th:href="@{/logout}">Logout</a></li>
-        </ul>
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Offcanvas Sidebar for small screens -->
+        <div class="offcanvas offcanvas-start bg-dark text-white d-md-none" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="sidebarLabel">Student Dashboard</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body p-0">
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/dashboard}">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/courses}">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/registered-courses}">My Courses</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/results}">My Results</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/materials}">Course Materials</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/profile}">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/notifications}">Notifications</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/messages}">Messages</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/settings}">Settings</a></li>
+                    <li class="nav-item"><a class="nav-link text-danger" th:href="@{/logout}">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Static Sidebar for medium and larger screens -->
+        <nav class="col-md-3 col-lg-2 d-none d-md-block bg-dark text-white min-vh-100">
+            <div class="p-3">
+                <h4 class="text-white">Student Dashboard</h4>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/dashboard}">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/courses}">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/registered-courses}">My Courses</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/results}">My Results</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/materials}">Course Materials</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/profile}">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/notifications}">Notifications</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/messages}">Messages</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/student/settings}">Settings</a></li>
+                    <li class="nav-item"><a class="nav-link text-danger" th:href="@{/logout}">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="col-12 col-md-9 col-lg-10 py-3">
+            <div class="text-center my-4">
+                <h2>Welcome, <span th:text="${student.firstName}">Student</span></h2>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">Courses Enrolled</div>
+                        <div class="card-body">
+                            <p>Track your courses.</p>
+                            <a th:href="@{/student/courses}" class="btn btn-primary">View</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-warning text-dark">Assignments</div>
+                        <div class="card-body">
+                            <p>Complete your tasks.</p>
+                            <a th:href="@{/student/assignments}" class="btn btn-warning text-dark">View</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">Quizzes</div>
+                        <div class="card-body">
+                            <p>Test your knowledge.</p>
+                            <a th:href="@{/quizzes}" class="btn btn-success">View</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-info text-white">Materials</div>
+                        <div class="card-body">
+                            <p>Access study materials.</p>
+                            <a th:href="@{/student/materials}" class="btn btn-info text-white">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="text-center text-muted small mt-5 mb-3">
+                &copy; 2025 University. All Rights Reserved.
+            </footer>
+        </main>
     </div>
 </div>
-
-<!-- Main Content -->
-<div class="container-fluid mt-4">
-    <h2 class="text-center mb-4">Welcome, <span th:text="${student.firstName}">Student</span></h2>
-
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card">
-                <div class="card-header">Courses Enrolled</div>
-                <div class="card-body">
-                    <p>Track your courses.</p>
-                    <a th:href="@{/student/courses}" class="btn btn-primary">View</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card">
-                <div class="card-header">Assignments</div>
-                <div class="card-body">
-                    <p>Complete your tasks.</p>
-                    <a th:href="@{/student/assignments}" class="btn btn-warning">View</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card">
-                <div class="card-header">Quizzes</div>
-                <div class="card-body">
-                    <p>Test your knowledge.</p>
-                    <a th:href="@{/quizzes}" class="btn btn-success">View</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card">
-                <div class="card-header">Materials</div>
-                <div class="card-body">
-                    <p>Access study materials.</p>
-                    <a th:href="@{/student/materials}" class="btn btn-info">View</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer>
-    <p>&copy; 2025 University. All Rights Reserved.</p>
-</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

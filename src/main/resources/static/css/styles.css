@@ -1,234 +1,132 @@
-/* Sidebar styles */
-#sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100vh;
-    background-color: #343a40;
-    color: #fff;
-    transition: all 0.3s;
-}
-
-#sidebar .sidebar-header {
-    padding: 20px;
-    background: #6c757d;
-    text-align: center;
-}
-
-#sidebar ul.components {
-    padding: 20px 0;
-    list-style: none;
-}
-
-#sidebar ul.components li a {
-    padding: 15px;
-    font-size: 1.1rem;
-    color: #fff;
-    display: block;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-#sidebar ul.components li a:hover {
-    background-color: #007bff;
-}
-
-#sidebar ul.CTAs {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-}
-
-#sidebar ul.CTAs li a {
-    padding: 10px;
-    font-size: 1rem;
-    text-align: center;
-    width: 100%;
-    background-color: #6c757d;
-    color: #fff;
-    display: block;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-#sidebar ul.CTAs li a:hover {
-    background-color: #007bff;
-}
-
-/* Content Area */
-#content {
-    margin-left: 250px;
-    padding: 20px;
-    transition: all 0.3s;
-}
-
-/* Responsive sidebar */
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-    #content {
-        margin-left: 0;
-    }
-}
-
-.navbar-brand {
-    font-size: 1.6rem;
-    font-weight: bold;
-    padding-left: 15px;
-}
-
 body {
-    background-color: #343a40; /* Dark background */
-    color: #ffffff; /* White text */
+    background: linear-gradient(135deg, #1e1e2e, #2c2c44);
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
 }
 
-/* Ensure links and other elements have appropriate colors for visibility */
-a {
-    color: #ffffff; /* White links */
-}
-
-a:hover {
-    color: #007bff; /* Blue on hover for contrast */
-}
-
-/* Adjust sidebar text colors as needed */
-#sidebar ul.components li a {
-    color: #ffffff; /* Sidebar links stay white */
-}
-
-#sidebar ul.components li a:hover {
-    background-color: #007bff; /* Add a contrasting hover effect */
-}
-
-.navbar-nav .nav-link {
-    padding: 10px 15px;
-    font-size: 1rem;
-    transition: color 0.2s ease;
-}
-
-.navbar-nav .nav-link:hover {
-    color: #007bff;
-}
-/* WhatsApp-style Chat Container */
-.whatsapp-chat-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.sidebar {
+    background: rgba(30, 30, 46, 0.8);
+    backdrop-filter: blur(10px);
     height: 100vh;
-    background-color: #ebf8ff; /* Soft blue background for a soothing effect */
-}
-
-/* Chat Window */
-.chat-window {
-    width: 60%;
-    max-width: 600px; /* Limit the maximum width, similar to mobile */
-    height: 80%;
-    background-color: #ffffff; /* Clean white background */
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Deeper shadow for a 3D effect */
-    display: flex;
-    flex-direction: column;
-    overflow: hidden; /* Ensure child elements respect boundaries */
-}
-
-/* Chat Box (scrollable message area) */
-.chat-box {
-    flex: 1;
-    overflow-y: auto; /* Better scrolling behavior */
+    width: 250px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
     padding: 20px;
-    background-color: #f8fafe; /* Light background for messages */
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px; /* Smooth corner styling */
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Message bubbles */
-.message {
-    margin: 12px 0;
-    display: flex;
+.sidebar h3 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-/* Message content styling */
-.message-content {
-    padding: 12px 18px;
-    border-radius: 20px;
-    max-width: 75%; /* Slightly wider to mimic WhatsApp */
-    position: relative;
-    font-size: 15px;
-    word-wrap: break-word;
-    overflow-wrap: break-word; /* Ensure long words wrap */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+.sidebar .nav-link {
+    color: #b8b8d1;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
-/* Sent messages (align right, light green background) */
-.sent {
-    justify-content: flex-end; /* Align sent messages to the right */
+.sidebar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }
 
-.sent .message-content {
-    background-color: #e3f2fd; /* Light blue for sent messages */
-    text-align: right;
+.dashboard-content {
+    margin-left: 270px;
+    padding: 40px;
 }
 
-/* Received messages (align left, soft gray background) */
-.received {
-    justify-content: flex-start; /* Align received messages to the left */
+.navbar {
+    background: rgba(30, 30, 46, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    border-radius: 10px;
 }
 
-.received .message-content {
-    background-color: #f1f0f0; /* Soft gray for received messages */
-    text-align: left;
+.navbar-brand, .nav-link {
+    color: #ffffff !important;
 }
 
-/* Timestamp for messages */
-.timestamp {
-    font-size: 12px;
-    color: #888; /* Darker timestamp color */
-    margin-top: 5px;
-    display: block;
-    text-align: right; /* Align timestamps to the right */
+.nav-link:hover {
+    color: #ffffff !important;
 }
 
-/* Input Box */
-.chat-input-container {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-top: 1px solid #dcdcdc; /* Slightly lighter border */
-    background-color: #ffffff; /* White background for input */
+.table {
+    background: rgba(40, 40, 60, 0.7);
+    border-radius: 10px;
 }
 
-.chat-input-container input {
-    flex: 1;
-    padding: 12px; /* Increased padding for comfort */
-    border: 1px solid #ccc; /* Subtle border */
-    border-radius: 25px; /* Rounded input corners */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-    margin-right: 10px;
-    font-size: 14px;
-    transition: border-color 0.2s; /* Transition effect for focus */
+.table th, .table td {
+    color: #ffffff;
+    text-align: center;
+    padding: 12px;
 }
 
-.chat-input-container input:focus {
-    outline: none;
-    border-color: #25D366; /* Highlight border on focus */
+.table thead {
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.chat-input-container .send-button {
+.table-striped tbody tr:nth-of-type(odd) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.table-hover tbody tr:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.btn {
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     border: none;
-    background-color: #25D366; /* WhatsApp's send button color */
-    color: white;
-    padding: 12px 18px;
-    border-radius: 25px; /* Rounded corners for the button */
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s; /* Transition effect on hover */
 }
 
-.chat-input-container .send-button:hover {
-    background-color: #20b358; /* Darker green on hover for feedback */
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+.alert {
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.alert-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.alert-success {
+    background: #28a745;
+    color: white;
+}
+
+.alert-dismissible .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .dashboard-content {
+        margin-left: 0;
+        padding: 20px;
+    }
 }

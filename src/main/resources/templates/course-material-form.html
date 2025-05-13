@@ -6,82 +6,99 @@
     <title>Create Course Material</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa; /* Light background */
-            color: #495057; /* Text color */
-        }
-        .container {
-            background-color: #fff; /* White background for the form */
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for card effect */
-            margin-top: 50px;
-        }
-        h2 {
-            color: #007bff; /* Blue heading */
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        label {
-            font-weight: bold;
-        }
-        .form-control {
-            margin-bottom: 20px; /* Space between form fields */
-        }
-        .btn-primary {
-            width: 100%;
-            padding: 10px;
-        }
-    </style>
 </head>
-<body>
+<body class="bg-light">
 
-<div class="container">
-    <h2>Create Course Material</h2>
-    <form th:action="@{/course-materials/save}" th:object="${courseMaterial}" method="post" enctype="multipart/form-data">
-        <!-- Title Field -->
-        <div class="mb-3">
-            <label for="title" class="form-label">Title:</label>
-            <input type="text" id="title" class="form-control" th:field="*{title}" placeholder="Enter course material title" required>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">School Management</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/teacher/dashboard}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/course-materials}">Course Materials</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
         </div>
+    </div>
+</nav>
 
-        <!-- Description Field -->
-        <div class="mb-3">
-            <label for="description" class="form-label">Description:</label>
-            <textarea id="description" class="form-control" th:field="*{description}" rows="4" placeholder="Provide a brief description" required></textarea>
-        </div>
+<!-- Main Content -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Create Course Material</h2>
 
-        <!-- Course Dropdown -->
-        <div class="mb-3">
-            <label for="course" class="form-label">Course:</label>
-            <select id="course" class="form-select" th:field="*{course.id}" required>
-                <option value="" disabled selected>Select Course</option>
-                <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
-            </select>
-        </div>
+                    <!-- Alerts -->
+                    <div th:if="${success}" class="alert alert-success" role="alert">[[${success}]]</div>
+                    <div th:if="${error}" class="alert alert-danger" role="alert">[[${error}]]</div>
 
-        <!-- Instructor Dropdown -->
-        <div class="mb-3">
-            <label for="instructor" class="form-label">Instructor:</label>
-            <select id="instructor" class="form-select" th:field="*{instructor.id}" required>
-                <option value="" disabled selected>Select Instructor</option>
-                <option th:each="instructor : ${instructors}" th:value="${instructor.id}" th:text="${instructor.email}"></option>
-            </select>
-        </div>
+                    <!-- Form -->
+                    <form th:action="@{/course-materials/save}" th:object="${courseMaterial}" method="post" enctype="multipart/form-data">
+                        <!-- Title Field -->
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title:</label>
+                            <input type="text" id="title" class="form-control" th:field="*{title}" placeholder="Enter course material title" required>
+                        </div>
 
-        <!-- File Upload Field -->
-        <div class="mb-3">
-            <label for="file" class="form-label">File (PDF/Video):</label>
-            <input type="file" id="file" class="form-control" name="file" accept=".pdf,.mp4" required>
-        </div>
+                        <!-- Description Field -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description:</label>
+                            <textarea id="description" class="form-control" th:field="*{description}" rows="4" placeholder="Provide a brief description" required></textarea>
+                        </div>
 
-        <!-- Submit Button -->
-        <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-primary">Save Course Material</button>
+                        <!-- Course Dropdown -->
+                        <div class="mb-3">
+                            <label for="course" class="form-label">Course:</label>
+                            <select id="course" class="form-select" th:field="*{course.id}" required>
+                                <option value="" disabled selected>Select Course</option>
+                                <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+                            </select>
+                        </div>
+
+                        <!-- Instructor Dropdown -->
+                        <div class="mb-3">
+                            <label for="instructor" class="form-label">Instructor:</label>
+                            <select id="instructor" class="form-select" th:field="*{instructor.id}" required>
+                                <option value="" disabled selected>Select Instructor</option>
+                                <option th:each="instructor : ${instructors}" th:value="${instructor.id}" th:text="${instructor.email}"></option>
+                            </select>
+                        </div>
+
+                        <!-- File Upload Field -->
+                        <div class="mb-3">
+                            <label for="file" class="form-label">File (PDF/Video):</label>
+                            <input type="file" id="file" class="form-control" name="file" accept=".pdf,.mp4" required>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary px-4">Save Course Material</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </form>
+    </div>
 </div>
+
+<!-- Footer -->
+<footer class="bg-dark text-light text-center py-3 mt-5">
+    © 2024 School Management System
+</footer>
 
 <!-- Bootstrap 5 JS Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
