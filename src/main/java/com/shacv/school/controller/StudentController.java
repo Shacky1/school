@@ -5,6 +5,7 @@ import com.shacv.school.dto.StudentMarksDto;
 import com.shacv.school.entity.*;
 import com.shacv.school.service.*;
 import jakarta.annotation.Resource;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -236,6 +237,7 @@ public class StudentController {
         return "student_materials"; // This should match the name of your HTML template
     }
     // Method to stream media (audio/video)
+    @Transactional
     @GetMapping("/media/{id}")
     public ResponseEntity<byte[]> streamMedia(@PathVariable Long id) {
         // Fetch the CourseMaterial by ID
@@ -274,6 +276,7 @@ public class StudentController {
         }
     }
 
+    @Transactional
     @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable Long id) throws Exception {
         CourseMaterial material = courseMaterialService.getCourseMaterialById(id)
