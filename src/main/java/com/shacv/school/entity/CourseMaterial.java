@@ -23,6 +23,7 @@ public class CourseMaterial {
     private String fileType;
 
     @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] content;
 
     private LocalDateTime uploadDate;
